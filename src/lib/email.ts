@@ -1,6 +1,6 @@
 import { Resend } from 'resend'
 import { generateICS } from './ics'
-import { disciplineLabel, formatDateLong } from './sessions'
+import { formatDateLong } from './sessions'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 const FROM = 'Crestwood Classes <onboarding@resend.dev>'
@@ -72,20 +72,32 @@ function detailRow(label: string, value: string): string {
 
 // ─── Confirmation email to registrant ────────────────────────────────────────
 
+const DISCIPLINE_LABELS: Record<string, string> = { trapecio: 'Trapeze', aereos: 'Aerial Arts' }
+
+function entriesRows(entries: Array<{ discipline: string; adults: number; children: number }>): string {
+  return entries.map(e => {
+    const label = DISCIPLINE_LABELS[e.discipline] ?? e.discipline
+    const people = peopleDesc(e.adults, e.children)
+    return detailRow(
+      `<span style="background:${GREEN};color:${GOLD};border-radius:20px;padding:2px 10px;font-size:12px;">${label}</span>`,
+      people || '—'
+    )
+  }).join('')
+}
+
 export async function sendConfirmationEmail({
-  to, name, sessionDate, disciplines, adults, children, token,
+  to, name, sessionDate, entries, token,
 }: {
-  to: string; name: string; sessionDate: string; disciplines: string[]
-  adults: number; children: number; token: string
+  to: string; name: string; sessionDate: string
+  entries: Array<{ discipline: string; adults: number; children: number }>
+  token: string
 }) {
-  const discipline = disciplineLabel(disciplines)
   const dateFormatted = formatDateLong(sessionDate)
-  const people = peopleDesc(adults, children)
-  const total = adults + children
+  const allDisciplines = entries.map(e => DISCIPLINE_LABELS[e.discipline] ?? e.discipline).join(' + ')
 
   const icsContent = generateICS({
-    title: `${discipline} Class — Crestwood Camp`,
-    description: `Confirmed class for ${name}\\nDiscipline: ${discipline}\\nParticipants: ${people}`,
+    title: `${allDisciplines} Class — Crestwood Camp`,
+    description: `Confirmed class for ${name}\\nActivities: ${allDisciplines}`,
     location: 'Crestwood Camp',
     dateStr: sessionDate,
     startHour: 17,
@@ -104,8 +116,7 @@ export async function sendConfirmationEmail({
         ${detailRow('Date', `<span style="text-transform:capitalize;">${dateFormatted}</span>`)}
         ${detailRow('Time', '5:00 PM – 6:00 PM')}
         ${detailRow('Location', 'Crestwood Camp')}
-        ${detailRow('Discipline', `<span style="background:${GREEN};color:${GOLD};border-radius:20px;padding:2px 10px;font-size:12px;">${discipline}</span>`)}
-        ${detailRow('Participants', `${people} &nbsp;<span style="color:#aaa;font-weight:400;">(${total} total)</span>`)}
+        ${entriesRows(entries)}
       </tbody>
     </table>
 
@@ -123,7 +134,7 @@ export async function sendConfirmationEmail({
   await resend.emails.send({
     from: FROM,
     to: [to],
-    subject: `You're confirmed! ${discipline} class on ${dateFormatted}`,
+    subject: `You're confirmed! ${allDisciplines} on ${dateFormatted}`,
     html: baseLayout(body),
     attachments: [{ filename: 'crestwood-class.ics', content: Buffer.from(icsContent) }],
   })
@@ -132,15 +143,13 @@ export async function sendConfirmationEmail({
 // ─── Admin notification ───────────────────────────────────────────────────────
 
 export async function sendAdminNotification({
-  name, email, sessionDate, disciplines, adults, children,
+  name, email, sessionDate, entries,
 }: {
-  name: string; email: string; sessionDate: string; disciplines: string[]
-  adults: number; children: number
+  name: string; email: string; sessionDate: string
+  entries: Array<{ discipline: string; adults: number; children: number }>
 }) {
-  const discipline = disciplineLabel(disciplines)
+  const allDisciplines = entries.map(e => DISCIPLINE_LABELS[e.discipline] ?? e.discipline).join(' + ')
   const dateFormatted = formatDateLong(sessionDate)
-  const people = peopleDesc(adults, children)
-  const total = adults + children
 
   const body = `
     <h2 style="margin:0 0 6px;color:${GREEN};font-size:20px;font-weight:800;">New registration received</h2>
@@ -152,8 +161,7 @@ export async function sendAdminNotification({
         ${detailRow('Email', `<a href="mailto:${email}" style="color:${GREEN};">${email}</a>`)}
         ${detailRow('Date', `<span style="text-transform:capitalize;">${dateFormatted}</span>`)}
         ${detailRow('Time', '5:00 PM – 6:00 PM')}
-        ${detailRow('Discipline', `<span style="background:${GREEN};color:${GOLD};border-radius:20px;padding:2px 10px;font-size:12px;">${discipline}</span>`)}
-        ${detailRow('Participants', `${people} (${total} total)`)}
+        ${entriesRows(entries)}
       </tbody>
     </table>
   `
@@ -161,7 +169,7 @@ export async function sendAdminNotification({
   await resend.emails.send({
     from: FROM,
     to: [ADMIN_EMAIL],
-    subject: `New signup: ${name} — ${discipline} on ${dateFormatted}`,
+    subject: `New signup: ${name} — ${allDisciplines} on ${dateFormatted}`,
     html: baseLayout(body),
   })
 }
