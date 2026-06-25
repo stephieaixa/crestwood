@@ -19,7 +19,7 @@ const HOW_IT_WORKS = [
 
 function HowItWorks() {
   return (
-    <div className="bg-white rounded-2xl border border-gray-100 p-6">
+    <div className="bg-white rounded-2xl border border-gray-100 p-6 h-full">
       <h3 className="font-bold text-[#1B4D1B] text-base mb-4">How it works</h3>
       <div className="space-y-3">
         {HOW_IT_WORKS.map(step => (
@@ -79,11 +79,13 @@ export default function WeeklyLayout({ weeklyClasses, initialWeek }: Props) {
         </div>
 
         {/* Two-column on desktop, stacked on mobile */}
-        <div className="flex flex-col lg:flex-row lg:items-start lg:gap-6">
+        <div className="flex flex-col lg:flex-row lg:items-stretch lg:gap-6">
 
           {/* How it works — left on desktop, below cards on mobile */}
-          <aside className="order-2 lg:order-1 mt-6 lg:mt-0 lg:w-60 lg:flex-shrink-0 lg:sticky lg:top-6">
-            <HowItWorks />
+          <aside className="order-2 lg:order-1 mt-6 lg:mt-0 lg:w-60 lg:flex-shrink-0">
+            <div className="h-full">
+              <HowItWorks />
+            </div>
           </aside>
 
           {/* Class cards — right on desktop, first on mobile */}
