@@ -1,4 +1,4 @@
-import { getAllClassDates, groupByWeek, getInitialWeekIndex, ClassData, MAPS_URL } from '@/lib/sessions'
+import { getAllClassDates, groupByWeek, ClassData, MAPS_URL } from '@/lib/sessions'
 import { createAdminClient } from '@/lib/supabase'
 import ClassesSection from '@/components/ClassesSection'
 
@@ -42,8 +42,15 @@ export default async function Home() {
     capacity: capacities[dateStr] || { trapecio: 0, aereos: 0 },
   }))
 
+  const today = new Date()
+  today.setHours(0, 0, 0, 0)
+  const todayStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`
+
   const rawWeeks = groupByWeek(allDates)
-  const weeklyClasses: ClassData[][] = rawWeeks.map(week =>
+  // Only keep weeks that have at least one class today or in the future
+  const futureWeeks = rawWeeks.filter(week => week.some(c => c.dateStr >= todayStr))
+
+  const weeklyClasses: ClassData[][] = futureWeeks.map(week =>
     week.map(({ session, dateStr }) => ({
       sessionId: session.id,
       sessionLabel: session.label,
@@ -53,7 +60,7 @@ export default async function Home() {
       capacity: capacities[dateStr] || { trapecio: 0, aereos: 0 },
     }))
   )
-  const initialWeek = getInitialWeekIndex(rawWeeks)
+  const initialWeek = 0
 
   return (
     <div className="flex flex-col min-h-screen" style={{ background: 'var(--cream)' }}>
