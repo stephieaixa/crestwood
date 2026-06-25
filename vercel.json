@@ -1,4 +1,5 @@
 {
+  "alias": ["circushep.vercel.app"],
   "crons": [
     {
       "path": "/api/reminders",
