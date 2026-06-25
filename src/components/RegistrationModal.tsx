@@ -71,27 +71,27 @@ export default function RegistrationModal({ classData, onClose }: Props) {
     setError('')
 
     if (disciplines.length === 0) {
-      setError('Selecciona al menos una disciplina.')
+      setError('Please select at least one discipline.')
       return
     }
     if (totalPeople === 0) {
-      setError('Agrega al menos 1 participante.')
+      setError('Please add at least 1 participant.')
       return
     }
     if (!name.trim()) {
-      setError('Ingresa tu nombre.')
+      setError('Please enter your name.')
       return
     }
     if (!email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      setError('Ingresa un email valido.')
+      setError('Please enter a valid email address.')
       return
     }
 
     // Check capacity before submitting
     for (const disc of disciplines) {
       if (availableFor(disc) < totalPeople) {
-        const label = disc === 'trapecio' ? 'Trapecio' : 'Aereos'
-        setError(`No hay suficientes lugares en ${label} para ${totalPeople} persona${totalPeople > 1 ? 's' : ''}.`)
+        const label = disc === 'trapecio' ? 'Trapeze' : 'Aerial Arts'
+        setError(`Not enough spots in ${label} for ${totalPeople} participant${totalPeople > 1 ? 's' : ''}.`)
         return
       }
     }
@@ -126,9 +126,9 @@ export default function RegistrationModal({ classData, onClose }: Props) {
         {/* Header */}
         <div className="sticky top-0 bg-white border-b border-gray-100 px-6 py-4 flex items-center justify-between rounded-t-3xl sm:rounded-t-2xl z-10">
           <div>
-            <p className="text-xs text-gray-400 uppercase tracking-widest font-medium">Inscripcion</p>
+            <p className="text-xs text-gray-400 uppercase tracking-widest font-medium">Registration</p>
             <h2 className="font-bold text-[#1B4D1B] text-lg capitalize leading-tight">{dateFormatted}</h2>
-            <p className="text-sm text-gray-500">17:00 — 18:00 hs · Crestwood Camp</p>
+            <p className="text-sm text-gray-500">5:00 PM — 6:00 PM · Crestwood Camp</p>
           </div>
           <button
             onClick={onClose}
@@ -142,8 +142,8 @@ export default function RegistrationModal({ classData, onClose }: Props) {
           {/* Discipline selection */}
           <section>
             <h3 className="font-semibold text-gray-800 mb-3">
-              Que disciplina?
-              <span className="text-xs text-gray-400 font-normal ml-2">Podes elegir ambas</span>
+              Which discipline?
+              <span className="text-xs text-gray-400 font-normal ml-2">You can choose both</span>
             </h3>
             <div className="space-y-2">
               {DISCIPLINES.map(disc => {
@@ -170,7 +170,7 @@ export default function RegistrationModal({ classData, onClose }: Props) {
                     <div className="flex-1">
                       <p className={`font-semibold ${isSelected ? 'text-[#1B4D1B]' : 'text-gray-800'}`}>{disc.label}</p>
                       <p className="text-xs text-gray-400 mt-0.5">
-                        {isFull ? 'Completo' : `${available} lugar${available === 1 ? '' : 'es'} disponibles`}
+                        {isFull ? 'Full' : `${available} spot${available === 1 ? '' : 's'} available`}
                       </p>
                     </div>
                     <div className={[
@@ -191,29 +191,29 @@ export default function RegistrationModal({ classData, onClose }: Props) {
 
           {/* Participants */}
           <section>
-            <h3 className="font-semibold text-gray-800 mb-1">Participantes</h3>
+            <h3 className="font-semibold text-gray-800 mb-1">Participants</h3>
             <div className="bg-gray-50 rounded-xl px-4 py-1">
-              <Counter label="Adultos" value={adults} onChange={setAdults} min={0} max={10} />
-              <Counter label="Ninos" value={children} onChange={setChildren} min={0} max={10} />
+              <Counter label="Adults" value={adults} onChange={setAdults} min={0} max={10} />
+              <Counter label="Children" value={children} onChange={setChildren} min={0} max={10} />
             </div>
             {totalPeople > 0 && (
               <p className="text-xs text-center text-gray-400 mt-2">
-                Total: <strong className="text-[#1B4D1B]">{totalPeople} persona{totalPeople > 1 ? 's' : ''}</strong>
+                Total: <strong className="text-[#1B4D1B]">{totalPeople} participant{totalPeople > 1 ? 's' : ''}</strong>
               </p>
             )}
           </section>
 
           {/* Personal data */}
           <section>
-            <h3 className="font-semibold text-gray-800 mb-3">Tus datos</h3>
+            <h3 className="font-semibold text-gray-800 mb-3">Your info</h3>
             <div className="space-y-3">
               <div>
-                <label className="block text-xs text-gray-500 mb-1 font-medium uppercase tracking-wide">Nombre completo</label>
+                <label className="block text-xs text-gray-500 mb-1 font-medium uppercase tracking-wide">Full name</label>
                 <input
                   type="text"
                   value={name}
                   onChange={e => { setName(e.target.value); setError('') }}
-                  placeholder="Tu nombre"
+                  placeholder="Your name"
                   className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm outline-none focus:border-[#1B4D1B] focus:ring-2 focus:ring-[#1B4D1B]/10 transition-all placeholder-gray-300"
                 />
               </div>
@@ -226,7 +226,7 @@ export default function RegistrationModal({ classData, onClose }: Props) {
                   placeholder="tu@email.com"
                   className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm outline-none focus:border-[#1B4D1B] focus:ring-2 focus:ring-[#1B4D1B]/10 transition-all placeholder-gray-300"
                 />
-                <p className="text-xs text-gray-400 mt-1">Te enviamos confirmacion y recordatorio aca</p>
+                <p className="text-xs text-gray-400 mt-1">We'll send your confirmation and reminder here</p>
               </div>
             </div>
           </section>
@@ -251,10 +251,10 @@ export default function RegistrationModal({ classData, onClose }: Props) {
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
                 </svg>
-                Procesando...
+                Processing...
               </span>
             ) : (
-              'Confirmar inscripcion →'
+              'Confirm registration →'
             )}
           </button>
         </div>

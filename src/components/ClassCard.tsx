@@ -19,7 +19,7 @@ function CapacityBar({ occupied, max }: { occupied: number; max: number }) {
         />
       </div>
       <p className="text-xs" style={{ color }}>
-        {remaining <= 0 ? 'Completo' : `${remaining} lugar${remaining === 1 ? '' : 'es'} disponibles`}
+        {remaining <= 0 ? 'Full' : `${remaining} spot${remaining === 1 ? '' : 's'} left`}
       </p>
     </div>
   )
@@ -38,7 +38,7 @@ export default function ClassCard({ classData, onRegister }: Props) {
         <div>
           <p className="text-[#F5C842] text-xs font-semibold uppercase tracking-widest">{sessionLabel}</p>
           <h3 className="text-white text-2xl font-bold mt-0.5 capitalize">{dateShort}</h3>
-          <p className="text-green-300 text-sm mt-1">{startTime} — {endTime(startTime, classData.durationMinutes)} hs</p>
+          <p className="text-green-300 text-sm mt-1">{startTime} — {endTime(startTime, classData.durationMinutes)}</p>
         </div>
         <div className="text-right">
           <p className="text-green-300 text-xs">📍 Crestwood Camp</p>
@@ -78,7 +78,7 @@ export default function ClassCard({ classData, onRegister }: Props) {
               : 'bg-[#F5C842] text-[#1B4D1B] hover:bg-[#f0bc30] shadow-sm',
           ].join(' ')}
         >
-          {isFull ? 'Clase completa' : 'Inscribirme →'}
+          {isFull ? 'Class full' : 'Sign me up →'}
         </button>
       </div>
     </div>

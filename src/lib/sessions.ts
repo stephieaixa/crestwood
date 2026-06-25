@@ -9,15 +9,15 @@ export interface SessionConfig {
 }
 
 export const SESSIONS: SessionConfig[] = [
-  { id: 'tue', dayOfWeek: 2, startTime: '17:00', durationMinutes: 60, label: 'Martes' },
-  { id: 'thu', dayOfWeek: 4, startTime: '17:00', durationMinutes: 60, label: 'Jueves' },
+  { id: 'tue', dayOfWeek: 2, startTime: '17:00', durationMinutes: 60, label: 'Tuesday' },
+  { id: 'thu', dayOfWeek: 4, startTime: '17:00', durationMinutes: 60, label: 'Thursday' },
 ]
 
 export const MAX_PER_DISCIPLINE = 10
 
 export const DISCIPLINES: { id: Discipline; label: string; emoji: string }[] = [
-  { id: 'trapecio', label: 'Trapecio', emoji: '🎪' },
-  { id: 'aereos', label: 'Aereos', emoji: '🌀' },
+  { id: 'trapecio', label: 'Trapeze', emoji: '🎪' },
+  { id: 'aereos', label: 'Aerial Arts', emoji: '🌀' },
 ]
 
 export interface ClassData {
@@ -53,16 +53,16 @@ export function getUpcomingDates(weeksAhead = 3): Array<{ session: SessionConfig
 export function formatDateLong(dateStr: string): string {
   const [y, m, d] = dateStr.split('-').map(Number)
   const date = new Date(y, m - 1, d)
-  return date.toLocaleDateString('es-AR', { weekday: 'long', day: 'numeric', month: 'long' })
+  return date.toLocaleDateString('en-US', { weekday: 'long', day: 'numeric', month: 'long' })
 }
 
 export function formatDateShort(dateStr: string): string {
   const [y, m, d] = dateStr.split('-').map(Number)
   const date = new Date(y, m - 1, d)
-  return date.toLocaleDateString('es-AR', { day: 'numeric', month: 'short' })
+  return date.toLocaleDateString('en-US', { day: 'numeric', month: 'short' })
 }
 
 export function disciplineLabel(disciplines: string[]): string {
-  const map: Record<string, string> = { trapecio: 'Trapecio', aereos: 'Aereos' }
+  const map: Record<string, string> = { trapecio: 'Trapeze', aereos: 'Aerial Arts' }
   return disciplines.map(d => map[d] || d).join(' + ')
 }

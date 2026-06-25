@@ -50,11 +50,11 @@ export default async function Home() {
         <div>
           <div className="text-white font-black text-xl tracking-tight leading-none">CRESTWOOD</div>
           <div style={{ color: 'var(--gold)' }} className="text-xs font-semibold uppercase tracking-widest">
-            Acrobacia Aerea
+            Aerial Arts Classes
           </div>
         </div>
         <div className="ml-auto text-right hidden sm:block">
-          <p className="text-green-300 text-xs">Consultas</p>
+          <p className="text-green-300 text-xs">Contact</p>
           <a
             href="mailto:circusworldlife@gmail.com"
             className="text-white text-xs hover:text-[#F5C842] transition-colors"
@@ -77,18 +77,18 @@ export default async function Home() {
             pure joy!
           </p>
           <h1 className="text-white text-4xl sm:text-5xl font-black leading-tight mb-4">
-            Vola alto<br />con nosotros
+            Fly high<br />with us
           </h1>
           <p className="text-green-200 text-base mb-6 leading-relaxed">
-            Clases de Trapecio y Aereos para todas las edades.<br />
-            Un espacio para conectar con las alturas.
+            Trapeze & Aerial Arts classes for all ages.<br />
+            A place to connect with the heights.
           </p>
           <div className="flex flex-wrap justify-center gap-3">
             {[
-              { icon: '📅', text: 'Martes y Jueves' },
-              { icon: '🕔', text: '17:00 - 18:00 hs' },
+              { icon: '📅', text: 'Tuesdays & Thursdays' },
+              { icon: '🕔', text: '5:00 - 6:00 PM' },
               { icon: '📍', text: 'Crestwood Camp' },
-              { icon: '👥', text: 'Max 10 personas' },
+              { icon: '👥', text: 'Max 10 per class' },
             ].map(({ icon, text }) => (
               <span
                 key={text}
@@ -107,13 +107,13 @@ export default async function Home() {
       {/* Info section */}
       <section className="px-5 pb-10 max-w-2xl mx-auto w-full">
         <div className="bg-white rounded-2xl border border-gray-100 p-6">
-          <h3 className="font-bold text-[#1B4D1B] text-base mb-4">Como funciona?</h3>
+          <h3 className="font-bold text-[#1B4D1B] text-base mb-4">How it works</h3>
           <div className="space-y-3">
             {[
-              { n: '1', t: 'Elegi tu clase', d: 'Selecciona el dia que mejor te quede.' },
-              { n: '2', t: 'Reserva tu lugar', d: 'Completa el formulario con tus datos.' },
-              { n: '3', t: 'Recibe confirmacion', d: 'Te enviamos un email con todos los detalles y un archivo para agregar al calendario.' },
-              { n: '4', t: 'A volar!', d: 'El dia anterior te recordamos la clase. Solo trае ropa comoda.' },
+              { n: '1', t: 'Pick a class', d: 'Choose the day that works best for you.' },
+              { n: '2', t: 'Reserve your spot', d: 'Fill out the form with your details.' },
+              { n: '3', t: 'Get confirmed', d: 'We\'ll email you all the details and a calendar file to save the date.' },
+              { n: '4', t: 'Time to fly!', d: 'We\'ll send you a reminder the day before. Just wear comfortable clothes.' },
             ].map(step => (
               <div key={step.n} className="flex items-start gap-3">
                 <div
@@ -135,7 +135,7 @@ export default async function Home() {
       {/* Footer */}
       <footer style={{ background: 'var(--green)' }} className="mt-auto px-5 py-6 text-center">
         <p className="text-green-300 text-xs">
-          Crestwood Camp &bull; Clases de Acrobacia Aerea
+          Crestwood Camp &bull; Aerial Arts Classes
         </p>
         <a
           href="mailto:circusworldlife@gmail.com"

@@ -19,15 +19,15 @@ export async function registerForClass(data: RegisterPayload): Promise<
   { success: true; token: string } | { success: false; error: string }
 > {
   // Validate
-  if (!data.name.trim()) return { success: false, error: 'Por favor ingresa tu nombre.' }
+  if (!data.name.trim()) return { success: false, error: 'Please enter your name.' }
   if (!data.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
-    return { success: false, error: 'El email no es valido.' }
+    return { success: false, error: 'Please enter a valid email address.' }
   }
   if (data.disciplines.length === 0) {
-    return { success: false, error: 'Selecciona al menos una disciplina.' }
+    return { success: false, error: 'Please select at least one discipline.' }
   }
   if (data.adults + data.children === 0) {
-    return { success: false, error: 'Agrega al menos 1 participante.' }
+    return { success: false, error: 'Please add at least 1 participant.' }
   }
 
   const admin = createAdminClient()
@@ -47,12 +47,12 @@ export async function registerForClass(data: RegisterPayload): Promise<
 
     const remaining = MAX_PER_DISCIPLINE - occupied
     if (remaining < totalPeople) {
-      const label = discipline === 'trapecio' ? 'Trapecio' : 'Aereos'
+      const label = discipline === 'trapecio' ? 'Trapeze' : 'Aerial Arts'
       return {
         success: false,
         error: remaining <= 0
-          ? `No quedan lugares en ${label} para esta fecha.`
-          : `Solo quedan ${remaining} lugar${remaining === 1 ? '' : 'es'} en ${label} para esta fecha.`,
+          ? `No spots left in ${label} for this date.`
+          : `Only ${remaining} spot${remaining === 1 ? '' : 's'} left in ${label} for this date.`,
       }
     }
   }
@@ -74,7 +74,7 @@ export async function registerForClass(data: RegisterPayload): Promise<
 
   if (dbError || !reg) {
     console.error('DB error:', dbError)
-    return { success: false, error: 'Ocurrio un error. Por favor intenta de nuevo.' }
+    return { success: false, error: 'Something went wrong. Please try again.' }
   }
 
   const token = reg.confirmation_token

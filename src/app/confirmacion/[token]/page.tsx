@@ -24,13 +24,13 @@ export default async function ConfirmacionPage({ params }: Props) {
   const totalPeople = reg.adults + reg.children
 
   const peopleDesc = [
-    reg.adults > 0 ? `${reg.adults} adulto${reg.adults > 1 ? 's' : ''}` : '',
-    reg.children > 0 ? `${reg.children} nino${reg.children > 1 ? 's' : ''}` : '',
+    reg.adults > 0 ? `${reg.adults} adult${reg.adults > 1 ? 's' : ''}` : '',
+    reg.children > 0 ? `${reg.children} child${reg.children > 1 ? 'ren' : ''}` : '',
   ].filter(Boolean).join(' + ')
 
   const gcalUrl = googleCalendarUrl({
-    title: `Clase de ${discipline} - Crestwood Camp`,
-    description: `Inscripcion confirmada para ${reg.name}. Disciplina: ${discipline}. Participantes: ${peopleDesc}.`,
+    title: `${discipline} Class — Crestwood Camp`,
+    description: `Registration confirmed for ${reg.name}. Discipline: ${discipline}. Participants: ${peopleDesc}.`,
     location: 'Crestwood Camp',
     dateStr: reg.session_date,
   })
@@ -43,7 +43,7 @@ export default async function ConfirmacionPage({ params }: Props) {
         <div>
           <div className="text-white font-black text-xl tracking-tight leading-none">CRESTWOOD</div>
           <div style={{ color: 'var(--gold)' }} className="text-xs font-semibold uppercase tracking-widest">
-            Acrobacia Aerea
+            Aerial Arts Classes
           </div>
         </div>
       </header>
@@ -57,21 +57,21 @@ export default async function ConfirmacionPage({ params }: Props) {
           >
             <div className="text-5xl mb-4">🎉</div>
             <h1 style={{ color: 'var(--gold)' }} className="text-2xl font-black mb-2">
-              Inscripcion confirmada!
+              You're registered!
             </h1>
             <p className="text-green-200 text-sm capitalize">{dateFormatted}</p>
           </div>
 
           {/* Details card */}
           <div className="bg-white rounded-2xl border border-gray-100 p-6 mb-5">
-            <h2 className="font-bold text-[#1B4D1B] mb-4">Detalles de tu clase</h2>
+            <h2 className="font-bold text-[#1B4D1B] mb-4">Class details</h2>
             <div className="space-y-3">
               {[
-                { label: 'Nombre', value: reg.name },
-                { label: 'Fecha', value: <span className="capitalize">{dateFormatted}</span> },
-                { label: 'Horario', value: '17:00 - 18:00 hs' },
-                { label: 'Lugar', value: 'Crestwood Camp' },
-                { label: 'Disciplina', value: (
+                { label: 'Name', value: reg.name },
+                { label: 'Date', value: <span className="capitalize">{dateFormatted}</span> },
+                { label: 'Time', value: '5:00 PM – 6:00 PM' },
+                { label: 'Location', value: 'Crestwood Camp' },
+                { label: 'Discipline', value: (
                   <span
                     style={{ background: 'var(--green)', color: 'var(--gold)' }}
                     className="rounded-full px-3 py-0.5 text-xs font-bold"
@@ -79,7 +79,7 @@ export default async function ConfirmacionPage({ params }: Props) {
                     {discipline}
                   </span>
                 )},
-                { label: 'Participantes', value: `${peopleDesc} (${totalPeople} total)` },
+                { label: 'Participants', value: `${peopleDesc} (${totalPeople} total)` },
               ].map(({ label, value }) => (
                 <div key={label} className="flex items-center justify-between gap-4 py-2 border-b border-gray-50 last:border-0">
                   <span className="text-sm text-gray-500">{label}</span>
@@ -91,9 +91,9 @@ export default async function ConfirmacionPage({ params }: Props) {
 
           {/* Calendar section */}
           <div className="bg-white rounded-2xl border border-gray-100 p-6 mb-5">
-            <h2 className="font-bold text-[#1B4D1B] mb-1">Agregar al calendario</h2>
+            <h2 className="font-bold text-[#1B4D1B] mb-1">Add to calendar</h2>
             <p className="text-xs text-gray-400 mb-4">
-              Tambien te enviamos el archivo adjunto en el email de confirmacion.
+              We also attached the calendar file to your confirmation email.
             </p>
             <div className="space-y-2">
               <a
@@ -106,7 +106,7 @@ export default async function ConfirmacionPage({ params }: Props) {
                   <p className="text-sm font-semibold text-gray-800 group-hover:text-[#1B4D1B]">
                     Apple / Outlook Calendar
                   </p>
-                  <p className="text-xs text-gray-400">Descarga archivo .ics</p>
+                  <p className="text-xs text-gray-400">Download .ics file</p>
                 </div>
                 <span className="ml-auto text-gray-300 group-hover:text-[#1B4D1B]">↓</span>
               </a>
@@ -122,7 +122,7 @@ export default async function ConfirmacionPage({ params }: Props) {
                   <p className="text-sm font-semibold text-gray-800 group-hover:text-[#1B4D1B]">
                     Google Calendar
                   </p>
-                  <p className="text-xs text-gray-400">Abre en una nueva pestana</p>
+                  <p className="text-xs text-gray-400">Opens in a new tab</p>
                 </div>
                 <span className="ml-auto text-gray-300 group-hover:text-[#1B4D1B]">→</span>
               </a>
@@ -133,7 +133,7 @@ export default async function ConfirmacionPage({ params }: Props) {
           <div className="rounded-xl bg-[#e8f5e8] border border-[#c8e6c8] px-4 py-3 flex items-start gap-3 mb-6">
             <span className="text-lg">🔔</span>
             <p className="text-sm text-[#1B4D1B]">
-              Te vamos a enviar un recordatorio a <strong>{reg.email}</strong> el dia anterior a la clase.
+              We'll send a reminder to <strong>{reg.email}</strong> the day before your class.
             </p>
           </div>
 
@@ -142,7 +142,7 @@ export default async function ConfirmacionPage({ params }: Props) {
             href="/"
             className="block text-center text-sm text-gray-400 hover:text-[#1B4D1B] transition-colors"
           >
-            ← Volver al inicio
+            ← Back to home
           </a>
         </div>
       </main>
