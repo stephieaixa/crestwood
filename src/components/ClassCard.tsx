@@ -29,7 +29,7 @@ export default function ClassCard({ classData, onRegister }: Props) {
   const { sessionLabel, dateStr, startTime, capacity } = classData
   const dateFormatted = formatDateLong(dateStr)
   const dateShort = formatDateShort(dateStr)
-  const isFull = capacity.trapecio >= MAX_PER_DISCIPLINE && capacity.aereos >= MAX_PER_DISCIPLINE
+  const isFull = capacity.trapecio >= MAX_PER_DISCIPLINE['trapecio'] && capacity.aereos >= MAX_PER_DISCIPLINE['aereos']
 
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow">
@@ -59,7 +59,7 @@ export default function ClassCard({ classData, onRegister }: Props) {
             <span className="text-base">🎪</span>
             <span className="text-sm font-semibold text-gray-700">Trapeze</span>
           </div>
-          <CapacityBar occupied={capacity.trapecio} max={MAX_PER_DISCIPLINE} />
+          <CapacityBar occupied={capacity.trapecio} max={MAX_PER_DISCIPLINE['trapecio']} />
         </div>
 
         <div className="space-y-1.5">
@@ -67,7 +67,7 @@ export default function ClassCard({ classData, onRegister }: Props) {
             <span className="text-base">🌀</span>
             <span className="text-sm font-semibold text-gray-700">Aerial Arts</span>
           </div>
-          <CapacityBar occupied={capacity.aereos} max={MAX_PER_DISCIPLINE} />
+          <CapacityBar occupied={capacity.aereos} max={MAX_PER_DISCIPLINE['aereos']} />
         </div>
       </div>
 

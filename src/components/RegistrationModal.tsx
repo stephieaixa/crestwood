@@ -64,7 +64,7 @@ export default function RegistrationModal({ classData, onClose }: Props) {
 
   function availableFor(discipline: string): number {
     const occupied = discipline === 'trapecio' ? classData.capacity.trapecio : classData.capacity.aereos
-    return MAX_PER_DISCIPLINE - occupied
+    return (MAX_PER_DISCIPLINE[discipline] ?? 10) - occupied
   }
 
   function handleSubmit() {

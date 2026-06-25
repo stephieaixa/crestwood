@@ -45,7 +45,7 @@ export async function registerForClass(data: RegisterPayload): Promise<
       .filter((r: { disciplines: string[] }) => r.disciplines.includes(discipline))
       .reduce((sum: number, r: { adults: number; children: number }) => sum + r.adults + r.children, 0)
 
-    const remaining = MAX_PER_DISCIPLINE - occupied
+    const remaining = (MAX_PER_DISCIPLINE[discipline] ?? 10) - occupied
     if (remaining < totalPeople) {
       const label = discipline === 'trapecio' ? 'Trapeze' : 'Aerial Arts'
       return {

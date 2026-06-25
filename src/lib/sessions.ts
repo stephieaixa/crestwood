@@ -13,7 +13,10 @@ export const SESSIONS: SessionConfig[] = [
   { id: 'thu', dayOfWeek: 4, startTime: '17:00', durationMinutes: 60, label: 'Thursday' },
 ]
 
-export const MAX_PER_DISCIPLINE = 10
+export const MAX_PER_DISCIPLINE: Record<string, number> = {
+  trapecio: 10,
+  aereos: 8,
+}
 export const CLASS_START = '2026-07-01'
 export const CLASS_END   = '2026-08-19'
 export const MAPS_URL    = 'https://maps.app.goo.gl/QwVmsXXfDF87SZN18'
