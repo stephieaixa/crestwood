@@ -38,14 +38,8 @@ export default async function ConfirmacionPage({ params }: Props) {
   return (
     <div className="min-h-screen flex flex-col" style={{ background: 'var(--cream)' }}>
       {/* Header */}
-      <header style={{ background: 'var(--green)' }} className="px-5 py-4 flex items-center gap-3">
-        <div className="text-3xl">🎪</div>
-        <div>
-          <div className="text-white font-black text-xl tracking-tight leading-none">CRESTWOOD</div>
-          <div style={{ color: 'var(--gold)' }} className="text-xs font-semibold uppercase tracking-widest">
-            Aerial Arts Classes
-          </div>
-        </div>
+      <header style={{ background: 'var(--green)' }} className="px-5 py-3 flex items-center">
+        <img src="/logo.jpg" alt="Crestwood Camp" className="h-12 w-auto" />
       </header>
 
       <main className="flex-1 flex items-start justify-center px-4 py-10">

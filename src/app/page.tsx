@@ -65,14 +65,8 @@ export default async function Home() {
   return (
     <div className="flex flex-col min-h-screen" style={{ background: 'var(--cream)' }}>
       {/* Header */}
-      <header style={{ background: 'var(--green)' }} className="px-5 py-4 flex items-center gap-3">
-        <div className="text-3xl">🎪</div>
-        <div>
-          <div className="text-white font-black text-xl tracking-tight leading-none">CRESTWOOD</div>
-          <div style={{ color: 'var(--gold)' }} className="text-xs font-semibold uppercase tracking-widest">
-            Aerial Arts Classes
-          </div>
-        </div>
+      <header style={{ background: 'var(--green)' }} className="px-5 py-3 flex items-center gap-3">
+        <img src="/logo.jpg" alt="Crestwood Camp" className="h-12 w-auto" />
         <div className="ml-auto text-right hidden sm:block">
           <p className="text-green-300 text-xs">Contact</p>
           <a
