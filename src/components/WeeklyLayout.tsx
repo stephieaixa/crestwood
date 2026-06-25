@@ -58,16 +58,21 @@ export default function WeeklyLayout({ weeklyClasses, initialWeek }: Props) {
     <>
       <div className="w-full max-w-4xl mx-auto pt-8 pb-10">
 
-        {/* Week nav — arrows at outer edges, label centered */}
-        <div className="relative flex items-center justify-center mb-6 px-4">
-          <button onClick={prev} disabled={weekIndex === 0} aria-label="Previous week"
-            className={`absolute left-2 ${btnBase}`}>←</button>
-          <div className="text-center">
-            <p className="text-[10px] text-gray-400 uppercase tracking-widest font-medium">Week</p>
-            <p className="text-sm font-bold text-[#1B4D1B]">{weekLabel}</p>
+        {/* Week nav — mirrors the two-column layout so arrows align with the cards column */}
+        <div className="flex items-center gap-6 px-4 sm:px-6 lg:px-16 mb-6">
+          {/* Spacer matching How it works width */}
+          <div className="hidden lg:block lg:w-60 lg:flex-shrink-0" />
+          {/* Nav controls in the same zone as the class cards */}
+          <div className="flex-1 flex items-center justify-between">
+            <button onClick={prev} disabled={weekIndex === 0} aria-label="Previous week"
+              className={btnBase}>←</button>
+            <div className="text-center">
+              <p className="text-[10px] text-gray-400 uppercase tracking-widest font-medium">Week</p>
+              <p className="text-sm font-bold text-[#1B4D1B]">{weekLabel}</p>
+            </div>
+            <button onClick={next} disabled={weekIndex === weeklyClasses.length - 1} aria-label="Next week"
+              className={btnBase}>→</button>
           </div>
-          <button onClick={next} disabled={weekIndex === weeklyClasses.length - 1} aria-label="Next week"
-            className={`absolute right-2 ${btnBase}`}>→</button>
         </div>
 
         {/* Content area */}
