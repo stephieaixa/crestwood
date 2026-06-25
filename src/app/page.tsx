@@ -65,9 +65,20 @@ export default async function Home() {
   return (
     <div className="flex flex-col min-h-screen" style={{ background: 'var(--cream)' }}>
       {/* Header */}
-      <header style={{ background: 'var(--green)' }} className="px-5 py-3 flex items-center gap-3">
-        <img src="/logo.jpg" alt="Crestwood Camp" className="h-12 w-auto" />
-        <div className="ml-auto text-right hidden sm:block">
+      <header style={{ background: 'var(--green)' }} className="px-5 py-3 flex items-center">
+        <img src="/logo.jpg" alt="Crestwood Camp" className="h-12 w-auto flex-shrink-0" />
+
+        <div className="flex-1 text-center">
+          <p
+            style={{ color: 'var(--gold)', fontFamily: 'Georgia, "Times New Roman", serif', letterSpacing: '0.12em' }}
+            className="text-xl sm:text-2xl font-black uppercase italic leading-none"
+          >
+            Circus Hep!
+          </p>
+          <p className="text-green-400 text-[10px] uppercase tracking-widest mt-0.5">Aerial Arts Classes</p>
+        </div>
+
+        <div className="text-right hidden sm:block flex-shrink-0">
           <p className="text-green-300 text-xs">Contact</p>
           <a
             href="mailto:circusworldlife@gmail.com"
