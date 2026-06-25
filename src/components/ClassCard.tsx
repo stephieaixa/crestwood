@@ -38,14 +38,14 @@ export default function ClassCard({ classData, onRegister }: Props) {
         <div>
           <p className="text-[#F5C842] text-xs font-semibold uppercase tracking-widest">{sessionLabel}</p>
           <h3 className="text-white text-2xl font-bold mt-0.5 capitalize">{dateShort}</h3>
-          <p className="text-green-300 text-sm mt-1">{startTime} — {endTime(startTime, classData.durationMinutes)}</p>
+          <p className="text-green-300 text-sm mt-1 whitespace-nowrap">{startTime} — {endTime(startTime, classData.durationMinutes)}</p>
         </div>
         <div className="text-right">
           <a
             href={MAPS_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-green-300 text-xs hover:text-[#F5C842] transition-colors"
+            className="text-green-300 text-xs hover:text-[#F5C842] transition-colors whitespace-nowrap"
           >
             📍 Crestwood Camp
           </a>
