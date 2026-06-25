@@ -19,7 +19,7 @@ export default function ClassesSection({ weeklyClasses, initialWeek }: Props) {
 
   return (
     <>
-      <section className="px-4 sm:px-6 py-8 w-full">
+      <section className="px-4 sm:px-6 py-8 lg:pt-0 w-full">
         {/* Week navigation */}
         <div className="flex items-center justify-between mb-5">
           <button
