@@ -41,6 +41,9 @@ function HowItWorks() {
   )
 }
 
+const btnBase =
+  'w-11 h-11 rounded-full bg-[#1B4D1B] text-white flex items-center justify-center shadow-md disabled:opacity-25 hover:bg-[#2a5f2a] transition-all text-base'
+
 export default function WeeklyLayout({ weeklyClasses, initialWeek }: Props) {
   const [weekIndex, setWeekIndex] = useState(initialWeek)
   const [selected, setSelected] = useState<ClassData | null>(null)
@@ -48,62 +51,69 @@ export default function WeeklyLayout({ weeklyClasses, initialWeek }: Props) {
   const currentWeek = weeklyClasses[weekIndex] ?? []
   const weekLabel = weekRangeLabel(currentWeek.map(c => c.dateStr))
 
+  const prev = () => setWeekIndex(i => Math.max(0, i - 1))
+  const next = () => setWeekIndex(i => Math.min(weeklyClasses.length - 1, i + 1))
+
   return (
     <>
-      <div className="w-full max-w-4xl mx-auto px-10 sm:px-14 lg:px-16 pt-8 pb-10">
+      <div className="w-full max-w-4xl mx-auto pt-8 pb-10">
 
-        {/* Week navigation — arrows sit outside the content columns */}
-        <div className="relative flex items-center justify-center mb-6">
-          <button
-            onClick={() => setWeekIndex(i => Math.max(0, i - 1))}
-            disabled={weekIndex === 0}
-            aria-label="Previous week"
-            className="absolute -left-2 sm:left-0 w-10 h-10 rounded-full bg-[#1B4D1B] text-white flex items-center justify-center shadow-md disabled:opacity-25 hover:bg-[#2a5f2a] transition-all text-base"
-          >
-            ←
-          </button>
-
-          <div className="text-center px-4">
-            <p className="text-[10px] text-gray-400 uppercase tracking-widest font-medium">Week</p>
-            <p className="text-sm font-bold text-[#1B4D1B]">{weekLabel}</p>
-          </div>
-
-          <button
-            onClick={() => setWeekIndex(i => Math.min(weeklyClasses.length - 1, i + 1))}
-            disabled={weekIndex === weeklyClasses.length - 1}
-            aria-label="Next week"
-            className="absolute -right-2 sm:right-0 w-10 h-10 rounded-full bg-[#1B4D1B] text-white flex items-center justify-center shadow-md disabled:opacity-25 hover:bg-[#2a5f2a] transition-all text-base"
-          >
-            →
-          </button>
+        {/* Week label — centered, no arrows */}
+        <div className="text-center mb-6 px-4">
+          <p className="text-[10px] text-gray-400 uppercase tracking-widest font-medium">Week</p>
+          <p className="text-sm font-bold text-[#1B4D1B]">{weekLabel}</p>
         </div>
 
-        {/* Two-column on desktop, stacked on mobile */}
-        <div className="flex flex-col lg:flex-row lg:items-stretch lg:gap-6">
+        {/* Mobile arrows */}
+        <div className="flex items-center justify-between px-4 mb-4 lg:hidden">
+          <button onClick={prev} disabled={weekIndex === 0} aria-label="Previous week" className={btnBase}>←</button>
+          <button onClick={next} disabled={weekIndex === weeklyClasses.length - 1} aria-label="Next week" className={btnBase}>→</button>
+        </div>
 
-          {/* How it works — left on desktop, below cards on mobile */}
-          <aside className="order-2 lg:order-1 mt-6 lg:mt-0 lg:w-60 lg:flex-shrink-0">
-            <div className="h-full">
-              <HowItWorks />
+        {/* Content area — arrows are absolute on desktop */}
+        <div className="relative px-4 sm:px-6 lg:px-16">
+
+          {/* Desktop arrows: outside columns, aligned with Sign me up button */}
+          <button
+            onClick={prev}
+            disabled={weekIndex === 0}
+            aria-label="Previous week"
+            className={`hidden lg:flex absolute left-2 bottom-[28px] -translate-y-1/2 ${btnBase}`}
+          >←</button>
+          <button
+            onClick={next}
+            disabled={weekIndex === weeklyClasses.length - 1}
+            aria-label="Next week"
+            className={`hidden lg:flex absolute right-2 bottom-[28px] -translate-y-1/2 ${btnBase}`}
+          >→</button>
+
+          {/* Two-column on desktop, stacked on mobile */}
+          <div className="flex flex-col lg:flex-row lg:items-stretch lg:gap-6">
+
+            {/* How it works — left on desktop, below cards on mobile */}
+            <aside className="order-2 lg:order-1 mt-6 lg:mt-0 lg:w-60 lg:flex-shrink-0">
+              <div className="h-full">
+                <HowItWorks />
+              </div>
+            </aside>
+
+            {/* Class cards — right on desktop, first on mobile */}
+            <div className="order-1 lg:order-2 lg:flex-1 lg:min-w-0">
+              {currentWeek.length === 0 ? (
+                <div className="text-center py-12 text-gray-400">
+                  <p className="text-4xl mb-3">🗓</p>
+                  <p className="font-medium">No classes this week.</p>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {currentWeek.map(c => (
+                    <ClassCard key={c.dateStr} classData={c} onRegister={setSelected} />
+                  ))}
+                </div>
+              )}
             </div>
-          </aside>
 
-          {/* Class cards — right on desktop, first on mobile */}
-          <div className="order-1 lg:order-2 lg:flex-1 lg:min-w-0">
-            {currentWeek.length === 0 ? (
-              <div className="text-center py-12 text-gray-400">
-                <p className="text-4xl mb-3">🗓</p>
-                <p className="font-medium">No classes this week.</p>
-              </div>
-            ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {currentWeek.map(c => (
-                  <ClassCard key={c.dateStr} classData={c} onRegister={setSelected} />
-                ))}
-              </div>
-            )}
           </div>
-
         </div>
       </div>
 
