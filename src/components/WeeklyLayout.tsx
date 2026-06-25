@@ -58,11 +58,13 @@ export default function WeeklyLayout({ weeklyClasses, initialWeek }: Props) {
     <>
       <div className="w-full max-w-6xl mx-auto pt-8 pb-10">
 
-        {/* Week nav — centered on full page width */}
-        <div className="relative flex items-center justify-center mb-6 px-16">
+        {/* Week nav — arrows stay at far edges, label centered over cards column */}
+        <div className="relative flex items-center px-4 sm:px-6 lg:px-8 mb-6">
           <button onClick={prev} disabled={weekIndex === 0} aria-label="Previous week"
             className={`absolute left-4 ${btnBase}`}>←</button>
-          <div className="text-center">
+          {/* Spacer = How it works width (w-64) + column gap (mr-10) → aligns label with cards */}
+          <div className="hidden lg:block lg:flex-shrink-0 lg:w-64 lg:mr-10" />
+          <div className="flex-1 text-center">
             <p className="text-[10px] text-gray-400 uppercase tracking-widest font-medium">Week</p>
             <p className="text-sm font-bold text-[#1B4D1B]">{weekLabel}</p>
           </div>
