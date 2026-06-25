@@ -66,7 +66,7 @@ export default async function Home() {
     <div className="flex flex-col min-h-screen" style={{ background: 'var(--cream)' }}>
       {/* Header */}
       <header style={{ background: 'var(--green)' }} className="px-5 py-3 flex items-center">
-        <img src="/logo.jpg" alt="Crestwood Camp" className="h-12 w-auto flex-shrink-0" />
+        <img src="/logo.png" alt="Crestwood Camp" className="h-12 w-auto flex-shrink-0" />
 
         <div className="flex-1 text-center">
           <p
