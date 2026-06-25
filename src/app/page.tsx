@@ -108,11 +108,8 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Classes */}
-      <ClassesSection weeklyClasses={weeklyClasses} initialWeek={initialWeek} />
-
       {/* Info section */}
-      <section className="px-5 pb-10 max-w-2xl mx-auto w-full">
+      <section className="px-5 pt-8 pb-2 max-w-2xl mx-auto w-full">
         <div className="bg-white rounded-2xl border border-gray-100 p-6">
           <h3 className="font-bold text-[#1B4D1B] text-base mb-4">How it works</h3>
           <div className="space-y-3">
@@ -138,6 +135,9 @@ export default async function Home() {
           </div>
         </div>
       </section>
+
+      {/* Classes */}
+      <ClassesSection weeklyClasses={weeklyClasses} initialWeek={initialWeek} />
 
       {/* Footer */}
       <footer style={{ background: 'var(--green)' }} className="mt-auto px-5 py-6 text-center">
