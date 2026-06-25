@@ -32,7 +32,7 @@ export default function ClassCard({ classData, onRegister }: Props) {
   const isFull = capacity.trapecio >= MAX_PER_DISCIPLINE['trapecio'] && capacity.aereos >= MAX_PER_DISCIPLINE['aereos']
 
   return (
-    <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow">
+    <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow flex flex-col h-full">
       {/* Card header */}
       <div className="bg-[#1B4D1B] px-5 pt-5 pb-4 flex items-start justify-between">
         <div>
@@ -72,7 +72,7 @@ export default function ClassCard({ classData, onRegister }: Props) {
       </div>
 
       {/* CTA */}
-      <div className="px-5 py-4">
+      <div className="px-5 py-4 mt-auto">
         <button
           onClick={() => onRegister(classData)}
           disabled={isFull}

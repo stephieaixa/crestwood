@@ -96,7 +96,7 @@ export default function WeeklyLayout({ weeklyClasses, initialWeek }: Props) {
                   <p className="font-medium">No classes this week.</p>
                 </div>
               ) : (
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-stretch h-full">
                   {currentWeek.map(c => (
                     <ClassCard key={c.dateStr} classData={c} onRegister={setSelected} />
                   ))}
