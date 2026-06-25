@@ -21,9 +21,9 @@ export const CLASS_START = '2026-07-01'
 export const CLASS_END   = '2026-08-19'
 export const MAPS_URL    = 'https://maps.app.goo.gl/QwVmsXXfDF87SZN18'
 
-export const DISCIPLINES: { id: Discipline; label: string; emoji: string }[] = [
+export const DISCIPLINES: { id: Discipline; label: string; emoji: string; description?: string }[] = [
   { id: 'trapecio', label: 'Trapeze', emoji: '🎪' },
-  { id: 'aereos',   label: 'Aerial Arts', emoji: '🌀' },
+  { id: 'aereos',   label: 'Aerial Arts', emoji: '🌀', description: 'Silks, hoop & dance trapeze' },
 ]
 
 export interface ClassData {

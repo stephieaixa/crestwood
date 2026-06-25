@@ -169,6 +169,9 @@ export default function RegistrationModal({ classData, onClose }: Props) {
                     <span className="text-2xl">{disc.emoji}</span>
                     <div className="flex-1">
                       <p className={`font-semibold ${isSelected ? 'text-[#1B4D1B]' : 'text-gray-800'}`}>{disc.label}</p>
+                      {disc.description && (
+                        <p className="text-xs text-gray-500 mt-0.5">{disc.description}</p>
+                      )}
                       <p className="text-xs text-gray-400 mt-0.5">
                         {isFull ? 'Full' : `${available} spot${available === 1 ? '' : 's'} available`}
                       </p>
