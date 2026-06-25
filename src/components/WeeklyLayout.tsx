@@ -56,33 +56,28 @@ export default function WeeklyLayout({ weeklyClasses, initialWeek }: Props) {
 
   return (
     <>
-      <div className="w-full max-w-4xl mx-auto pt-8 pb-10">
+      <div className="w-full max-w-6xl mx-auto pt-8 pb-10">
 
-        {/* Week nav — mirrors the two-column layout so arrows align with the cards column */}
-        <div className="flex items-center gap-6 px-4 sm:px-6 lg:px-16 mb-6">
-          {/* Spacer matching How it works width */}
-          <div className="hidden lg:block lg:w-60 lg:flex-shrink-0" />
-          {/* Nav controls in the same zone as the class cards */}
-          <div className="flex-1 flex items-center justify-between">
-            <button onClick={prev} disabled={weekIndex === 0} aria-label="Previous week"
-              className={btnBase}>←</button>
-            <div className="text-center">
-              <p className="text-[10px] text-gray-400 uppercase tracking-widest font-medium">Week</p>
-              <p className="text-sm font-bold text-[#1B4D1B]">{weekLabel}</p>
-            </div>
-            <button onClick={next} disabled={weekIndex === weeklyClasses.length - 1} aria-label="Next week"
-              className={btnBase}>→</button>
+        {/* Week nav — centered on full page width */}
+        <div className="relative flex items-center justify-center mb-6 px-16">
+          <button onClick={prev} disabled={weekIndex === 0} aria-label="Previous week"
+            className={`absolute left-4 ${btnBase}`}>←</button>
+          <div className="text-center">
+            <p className="text-[10px] text-gray-400 uppercase tracking-widest font-medium">Week</p>
+            <p className="text-sm font-bold text-[#1B4D1B]">{weekLabel}</p>
           </div>
+          <button onClick={next} disabled={weekIndex === weeklyClasses.length - 1} aria-label="Next week"
+            className={`absolute right-4 ${btnBase}`}>→</button>
         </div>
 
         {/* Content area */}
-        <div className="px-4 sm:px-6 lg:px-16">
+        <div className="px-4 sm:px-6 lg:px-8">
 
           {/* Two-column on desktop, stacked on mobile */}
-          <div className="flex flex-col lg:flex-row lg:items-stretch lg:gap-6">
+          <div className="flex flex-col lg:flex-row lg:items-stretch lg:gap-10">
 
             {/* How it works — left on desktop, below cards on mobile */}
-            <aside className="order-2 lg:order-1 mt-6 lg:mt-0 lg:w-60 lg:flex-shrink-0">
+            <aside className="order-2 lg:order-1 mt-6 lg:mt-0 lg:w-64 lg:flex-shrink-0">
               <div className="h-full">
                 <HowItWorks />
               </div>
