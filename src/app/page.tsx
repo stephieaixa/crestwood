@@ -94,11 +94,11 @@ export default async function Home() {
         style={{ background: 'linear-gradient(160deg, #1B4D1B 0%, #2D6A2D 60%, #3a7a3a 100%)' }}
         className="px-5 py-8 text-center"
       >
-        <div className="max-w-lg mx-auto">
+        <div className="max-w-2xl mx-auto">
           <h1 className="text-white text-3xl sm:text-4xl font-black leading-tight mb-3">
             Fly high with us
           </h1>
-          <p className="text-green-200 text-sm mb-5 leading-relaxed">
+          <p className="text-green-200 text-xs sm:text-sm mb-5 whitespace-nowrap">
             Trapeze & Aerial Arts for all ages · No experience needed · Wear comfortable clothes
           </p>
           <div className="flex flex-wrap justify-center gap-2">
