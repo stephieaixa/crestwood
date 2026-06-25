@@ -1,4 +1,4 @@
-import { ClassData, MAX_PER_DISCIPLINE, formatDateLong, formatDateShort } from '@/lib/sessions'
+import { ClassData, MAX_PER_DISCIPLINE, formatDateLong, formatDateShort, MAPS_URL } from '@/lib/sessions'
 
 interface Props {
   classData: ClassData
@@ -41,7 +41,14 @@ export default function ClassCard({ classData, onRegister }: Props) {
           <p className="text-green-300 text-sm mt-1">{startTime} — {endTime(startTime, classData.durationMinutes)}</p>
         </div>
         <div className="text-right">
-          <p className="text-green-300 text-xs">📍 Crestwood Camp</p>
+          <a
+            href={MAPS_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-green-300 text-xs hover:text-[#F5C842] transition-colors"
+          >
+            📍 Crestwood Camp
+          </a>
         </div>
       </div>
 
@@ -50,8 +57,7 @@ export default function ClassCard({ classData, onRegister }: Props) {
         <div className="space-y-1.5">
           <div className="flex items-center gap-2 mb-1">
             <span className="text-base">🎪</span>
-            <span className="text-sm font-semibold text-gray-700">Trapecio</span>
-            <span className="text-xs text-gray-400 ml-auto">{capacity.trapecio}/{MAX_PER_DISCIPLINE}</span>
+            <span className="text-sm font-semibold text-gray-700">Trapeze</span>
           </div>
           <CapacityBar occupied={capacity.trapecio} max={MAX_PER_DISCIPLINE} />
         </div>
@@ -59,8 +65,7 @@ export default function ClassCard({ classData, onRegister }: Props) {
         <div className="space-y-1.5">
           <div className="flex items-center gap-2 mb-1">
             <span className="text-base">🌀</span>
-            <span className="text-sm font-semibold text-gray-700">Aereos</span>
-            <span className="text-xs text-gray-400 ml-auto">{capacity.aereos}/{MAX_PER_DISCIPLINE}</span>
+            <span className="text-sm font-semibold text-gray-700">Aerial Arts</span>
           </div>
           <CapacityBar occupied={capacity.aereos} max={MAX_PER_DISCIPLINE} />
         </div>

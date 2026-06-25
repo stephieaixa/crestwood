@@ -1,4 +1,4 @@
-import { getUpcomingDates, ClassData } from '@/lib/sessions'
+import { getAllClassDates, groupByWeek, getInitialWeekIndex, ClassData, MAPS_URL } from '@/lib/sessions'
 import { createAdminClient } from '@/lib/supabase'
 import ClassesSection from '@/components/ClassesSection'
 
@@ -29,11 +29,11 @@ async function getCapacities(dateStrs: string[]): Promise<Record<string, { trape
 }
 
 export default async function Home() {
-  const upcoming = getUpcomingDates(3)
-  const dateStrs = upcoming.map(u => u.dateStr)
+  const allDates = getAllClassDates()
+  const dateStrs = allDates.map(u => u.dateStr)
   const capacities = await getCapacities(dateStrs)
 
-  const classes: ClassData[] = upcoming.map(({ session, dateStr }) => ({
+  const allClasses: ClassData[] = allDates.map(({ session, dateStr }) => ({
     sessionId: session.id,
     sessionLabel: session.label,
     startTime: session.startTime,
@@ -41,6 +41,19 @@ export default async function Home() {
     dateStr,
     capacity: capacities[dateStr] || { trapecio: 0, aereos: 0 },
   }))
+
+  const rawWeeks = groupByWeek(allDates)
+  const weeklyClasses: ClassData[][] = rawWeeks.map(week =>
+    week.map(({ session, dateStr }) => ({
+      sessionId: session.id,
+      sessionLabel: session.label,
+      startTime: session.startTime,
+      durationMinutes: session.durationMinutes,
+      dateStr,
+      capacity: capacities[dateStr] || { trapecio: 0, aereos: 0 },
+    }))
+  )
+  const initialWeek = getInitialWeekIndex(rawWeeks)
 
   return (
     <div className="flex flex-col min-h-screen" style={{ background: 'var(--cream)' }}>
@@ -67,42 +80,36 @@ export default async function Home() {
       {/* Hero */}
       <section
         style={{ background: 'linear-gradient(160deg, #1B4D1B 0%, #2D6A2D 60%, #3a7a3a 100%)' }}
-        className="px-5 py-14 text-center"
+        className="px-5 py-8 text-center"
       >
         <div className="max-w-lg mx-auto">
-          <p
-            style={{ color: 'var(--gold)' }}
-            className="text-xs font-bold uppercase tracking-widest mb-4"
-          >
-            pure joy!
-          </p>
-          <h1 className="text-white text-4xl sm:text-5xl font-black leading-tight mb-4">
-            Fly high<br />with us
+          <h1 className="text-white text-3xl sm:text-4xl font-black leading-tight mb-3">
+            Fly high with us
           </h1>
-          <p className="text-green-200 text-base mb-6 leading-relaxed">
-            Trapeze & Aerial Arts classes for all ages.<br />
-            A place to connect with the heights.
+          <p className="text-green-200 text-sm mb-5 leading-relaxed">
+            Trapeze & Aerial Arts for all ages · No experience needed · Wear comfortable clothes
           </p>
-          <div className="flex flex-wrap justify-center gap-3">
-            {[
-              { icon: '📅', text: 'Tuesdays & Thursdays' },
-              { icon: '🕔', text: '5:00 - 6:00 PM' },
-              { icon: '📍', text: 'Crestwood Camp' },
-              { icon: '👥', text: 'Max 10 per class' },
-            ].map(({ icon, text }) => (
-              <span
-                key={text}
-                className="flex items-center gap-1.5 text-sm text-green-100 bg-white/10 rounded-full px-3 py-1.5"
-              >
-                <span>{icon}</span> {text}
-              </span>
-            ))}
+          <div className="flex flex-wrap justify-center gap-2">
+            <span className="flex items-center gap-1.5 text-xs text-green-100 bg-white/10 rounded-full px-3 py-1.5">
+              <span>📅</span> Tuesdays & Thursdays
+            </span>
+            <span className="flex items-center gap-1.5 text-xs text-green-100 bg-white/10 rounded-full px-3 py-1.5">
+              <span>🕔</span> 5:00 – 6:00 PM
+            </span>
+            <a
+              href={MAPS_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 text-xs text-green-100 bg-white/10 rounded-full px-3 py-1.5 hover:bg-white/20 transition-colors"
+            >
+              <span>📍</span> Crestwood Camp
+            </a>
           </div>
         </div>
       </section>
 
       {/* Classes */}
-      <ClassesSection classes={classes} />
+      <ClassesSection weeklyClasses={weeklyClasses} initialWeek={initialWeek} />
 
       {/* Info section */}
       <section className="px-5 pb-10 max-w-2xl mx-auto w-full">
