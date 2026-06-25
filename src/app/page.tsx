@@ -115,36 +115,43 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Info section */}
-      <section className="px-5 pt-8 pb-2 max-w-2xl mx-auto w-full">
-        <div className="bg-white rounded-2xl border border-gray-100 p-6">
-          <h3 className="font-bold text-[#1B4D1B] text-base mb-4">How it works</h3>
-          <div className="space-y-3">
-            {[
-              { n: '1', t: 'Pick a class', d: 'Choose the day that works best for you.' },
-              { n: '2', t: 'Reserve your spot', d: 'Fill out the form with your details.' },
-              { n: '3', t: 'Get confirmed', d: 'We\'ll email you all the details and a calendar file to save the date.' },
-              { n: '4', t: 'Time to fly!', d: 'We\'ll send you a reminder the day before. Just wear comfortable clothes.' },
-            ].map(step => (
-              <div key={step.n} className="flex items-start gap-3">
-                <div
-                  style={{ background: 'var(--green)', color: 'var(--gold)' }}
-                  className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-black flex-shrink-0 mt-0.5"
-                >
-                  {step.n}
-                </div>
-                <div>
-                  <p className="font-semibold text-sm text-gray-800">{step.t}</p>
-                  <p className="text-xs text-gray-500 mt-0.5">{step.d}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* Main content: two-column on desktop, stacked on mobile */}
+      <div className="w-full max-w-4xl mx-auto lg:flex lg:items-start lg:gap-6 lg:px-6 lg:py-8">
 
-      {/* Classes */}
-      <ClassesSection weeklyClasses={weeklyClasses} initialWeek={initialWeek} />
+        {/* Left col: How it works */}
+        <section className="px-5 pt-8 pb-2 lg:p-0 lg:w-64 lg:flex-shrink-0 lg:sticky lg:top-6">
+          <div className="bg-white rounded-2xl border border-gray-100 p-6">
+            <h3 className="font-bold text-[#1B4D1B] text-base mb-4">How it works</h3>
+            <div className="space-y-3">
+              {[
+                { n: '1', t: 'Pick a class', d: 'Choose the day that works best for you.' },
+                { n: '2', t: 'Reserve your spot', d: 'Fill out the form with your details.' },
+                { n: '3', t: 'Get confirmed', d: 'We\'ll email you all the details and a calendar file to save the date.' },
+                { n: '4', t: 'Time to fly!', d: 'We\'ll send you a reminder the day before. Just wear comfortable clothes.' },
+              ].map(step => (
+                <div key={step.n} className="flex items-start gap-3">
+                  <div
+                    style={{ background: 'var(--green)', color: 'var(--gold)' }}
+                    className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-black flex-shrink-0 mt-0.5"
+                  >
+                    {step.n}
+                  </div>
+                  <div>
+                    <p className="font-semibold text-sm text-gray-800">{step.t}</p>
+                    <p className="text-xs text-gray-500 mt-0.5">{step.d}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Right col: Classes */}
+        <div className="lg:flex-1 lg:min-w-0">
+          <ClassesSection weeklyClasses={weeklyClasses} initialWeek={initialWeek} />
+        </div>
+
+      </div>
 
       {/* Footer */}
       <footer style={{ background: 'var(--green)' }} className="mt-auto px-5 py-6 text-center">
