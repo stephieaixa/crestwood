@@ -182,7 +182,7 @@ export async function sendReminderEmail({
   to: string; name: string; sessionDate: string; disciplines: string[]
   adults: number; children: number
 }) {
-  const discipline = disciplineLabel(disciplines)
+  const discipline = disciplines.map(d => DISCIPLINE_LABELS[d] ?? d).join(' + ')
   const dateFormatted = formatDateLong(sessionDate)
   const total = adults + children
 
