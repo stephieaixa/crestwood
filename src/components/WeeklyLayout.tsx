@@ -58,34 +58,20 @@ export default function WeeklyLayout({ weeklyClasses, initialWeek }: Props) {
     <>
       <div className="w-full max-w-4xl mx-auto pt-8 pb-10">
 
-        {/* Week label — centered, no arrows */}
-        <div className="text-center mb-6 px-4">
-          <p className="text-[10px] text-gray-400 uppercase tracking-widest font-medium">Week</p>
-          <p className="text-sm font-bold text-[#1B4D1B]">{weekLabel}</p>
+        {/* Week nav — arrows at outer edges, label centered */}
+        <div className="relative flex items-center justify-center mb-6 px-4">
+          <button onClick={prev} disabled={weekIndex === 0} aria-label="Previous week"
+            className={`absolute left-2 ${btnBase}`}>←</button>
+          <div className="text-center">
+            <p className="text-[10px] text-gray-400 uppercase tracking-widest font-medium">Week</p>
+            <p className="text-sm font-bold text-[#1B4D1B]">{weekLabel}</p>
+          </div>
+          <button onClick={next} disabled={weekIndex === weeklyClasses.length - 1} aria-label="Next week"
+            className={`absolute right-2 ${btnBase}`}>→</button>
         </div>
 
-        {/* Mobile arrows */}
-        <div className="flex items-center justify-between px-4 mb-4 lg:hidden">
-          <button onClick={prev} disabled={weekIndex === 0} aria-label="Previous week" className={btnBase}>←</button>
-          <button onClick={next} disabled={weekIndex === weeklyClasses.length - 1} aria-label="Next week" className={btnBase}>→</button>
-        </div>
-
-        {/* Content area — arrows are absolute on desktop */}
-        <div className="relative px-4 sm:px-6 lg:px-16">
-
-          {/* Desktop arrows: outside columns, aligned with Sign me up button */}
-          <button
-            onClick={prev}
-            disabled={weekIndex === 0}
-            aria-label="Previous week"
-            className={`hidden lg:flex absolute left-2 bottom-[28px] -translate-y-1/2 ${btnBase}`}
-          >←</button>
-          <button
-            onClick={next}
-            disabled={weekIndex === weeklyClasses.length - 1}
-            aria-label="Next week"
-            className={`hidden lg:flex absolute right-2 bottom-[28px] -translate-y-1/2 ${btnBase}`}
-          >→</button>
+        {/* Content area */}
+        <div className="px-4 sm:px-6 lg:px-16">
 
           {/* Two-column on desktop, stacked on mobile */}
           <div className="flex flex-col lg:flex-row lg:items-stretch lg:gap-6">
